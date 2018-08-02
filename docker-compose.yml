@@ -1,0 +1,19 @@
+mongo:
+        restart: always
+        image: reg.qiniu.com/pub/mongo:3.6
+        ports:
+                - "11116:22"
+        volumes:
+                - /app:/app
+        container_name: mongo 
+        hostname: mongo
+        command:
+                - /bin/bash
+                - -c
+                - |
+                        cron
+                        /etc/init.d/mongodb start
+                        /usr/sbin/sshd -D
+                        #external_links:
+                        #- base
+        privileged: true
